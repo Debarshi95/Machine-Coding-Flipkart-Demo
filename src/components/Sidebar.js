@@ -5,17 +5,45 @@ import {
   Divider,
   FormControlLabel,
   Checkbox,
-  Slider,
+  Select,
+  MenuItem,
+  InputLabel,
 } from "@material-ui/core";
 
-function Sidebar({ handleFilter, clearFilters }) {
-  const handleCheckChange = (e) => {
-    if (e.target.checked) {
-      handleFilter(e.target.name, e.target.value);
-    } else {
-      handleFilter(null);
-    }
+import { filterProducts, sortProducts } from "../utils/filter";
+
+function Sidebar({ products, setProducts }) {
+  const [pricing, setPricing] = React.useState(2);
+  const [checkBoxes, setCheckBoxes] = React.useState();
+
+  const clearFilters = () => {
+    fetch("/assets/data.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data.products));
   };
+
+  const handlePricing = (order) => {
+    setProducts(sortProducts(products, order));
+  };
+  const handleCheckChange = (e) => {
+    const itemName = e.target.name;
+    const itemValue = e.target.value;
+
+    setProducts(
+      filterProducts(products, (item) => {
+        if (itemName === "size") {
+          return item.size.includes(itemValue);
+        }
+        return item[itemName] === itemValue;
+      })
+    );
+  };
+
+  const handleSortChange = (e) => {
+    setPricing(e.target.value);
+    handlePricing(e.target.value);
+  };
+
   return (
     <Box
       width="340px"
@@ -24,7 +52,7 @@ function Sidebar({ handleFilter, clearFilters }) {
       position="sticky"
       top={0}
     >
-      <Typography component="h5" variant="h5">
+      <Typography component="h5" variant="h5" gutterBottom>
         Filter
       </Typography>
       <Divider />
@@ -57,19 +85,17 @@ function Sidebar({ handleFilter, clearFilters }) {
         />
       </Box>
       <Box>
-        <div>
-          <Typography id="discrete-slider-custom" gutterBottom>
-            Custom marks
-          </Typography>
-          <Slider
-            defaultValue={399}
-            getAriaValueText={""}
-            aria-labelledby="discrete-slider-custom"
-            step={10}
-            valueLabelDisplay="auto"
-            marks={""}
-          />
-        </div>
+        <InputLabel id="demo-simple-select-readonly-label">Pricing</InputLabel>
+        <Select
+          labelId="demo-simple-select-readonly-label"
+          id="demo-simple-select-readonly"
+          value={pricing}
+          onChange={handleSortChange}
+        >
+          <MenuItem value={2}>Select Pricing</MenuItem>
+          <MenuItem value={1}>High To Low</MenuItem>
+          <MenuItem value={0}>Low To High</MenuItem>
+        </Select>
       </Box>
       <Box>
         <Typography variant="h6" component="h6">

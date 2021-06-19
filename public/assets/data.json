@@ -6,7 +6,7 @@
       "brand": "Nike",
       "idealFor": "men",
       "price": 399,
-      "size": "M",
+      "size": ["M", "L"],
       "imgUrl": "/assets/images/shirt1.jpeg"
     },
     {
@@ -15,7 +15,7 @@
       "brand": "Gucci",
       "idealFor": "men",
       "price": 499,
-      "size": "L",
+      "size": ["L", "S", "M"],
       "imgUrl": "/assets/images/shirt2.jpeg"
     },
     {
@@ -24,7 +24,7 @@
       "brand": "Nike",
       "idealFor": "men",
       "price": 599,
-      "size": "S",
+      "size": ["S", "L"],
       "imgUrl": "/assets/images/shirt3.jpeg"
     },
     {
@@ -33,7 +33,7 @@
       "brand": "ABC",
       "idealFor": "men",
       "price": 399,
-      "size": "M",
+      "size": ["M", "S"],
       "imgUrl": "/assets/images/shirt4.jpeg"
     },
     {
@@ -42,7 +42,7 @@
       "brand": "Gucci",
       "idealFor": "women",
       "price": 499,
-      "size": "L",
+      "size": ["S", "L", "M"],
       "imgUrl": "/assets/images/shirt5.jpeg"
     },
     {
@@ -51,7 +51,7 @@
       "brand": "Nike",
       "idealFor": "women",
       "price": 699,
-      "size": "S",
+      "size": ["S", "L"],
       "imgUrl": "/assets/images/shirt6.jpeg"
     }
   ]

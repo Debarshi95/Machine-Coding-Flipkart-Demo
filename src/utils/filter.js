@@ -1,14 +1,18 @@
-export const filterProducts = async (filterName, filterValue) => {
-  const res = await fetch("/assets/data.json");
-  const data = await res.json();
+export const filterProducts = (products, cb) => {
+  const prod = [...products];
 
-  if (filterName !== null) {
-    const arr = data.products.filter(
-      (product) => product[filterName] === filterValue
-    );
+  const filteredArr = prod.filter((i) => cb(i));
+  return filteredArr;
+};
 
-    // console.log(arr);
-    return arr;
+export const sortProducts = (products, order) => {
+  const prod = [...products];
+  if (order === 0) {
+    const incr = prod.sort((a, b) => a.price - b.price);
+    return incr;
   }
-  return data.products;
+  if (order === 1) {
+    return prod.sort((a, b) => b.price - a.price);
+  }
+  return prod;
 };
